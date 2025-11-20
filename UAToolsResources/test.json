@@ -1,0 +1,245 @@
+{
+  "Default": {},
+  "A-2D": {
+    "children": {
+      "A-DOOR": {},
+      "A-FIREPLACE": {},
+      "A-WINDOW": {},
+      "A-WALL": {},
+      "A-FIXTURE": {},
+      "A-ABOVE": {},
+      "A-BELOW": {},
+      "A-STAIR": {},
+      "A-BELOW-HIDDEN": {},
+      "Footprint": {},
+      "SLAB": {},
+      "FLOOR_B1": {
+        "children": {
+          "A-DOOR": {}
+        }
+      },
+      "A-PLAN": {
+        "children": {
+          "A-HATCH": {},
+          "A-WALL": {},
+          "A-DOOR": {},
+          "A-WINDOW": {},
+          "A-ROOF": {},
+          "A-INTAKE": {},
+          "A-OUTTAKE": {},
+          "A-WALL-HIDDEN": {},
+          "A-STEP": {},
+          "A-FURNITURE": {}
+        }
+      },
+      "A-ELECTRICAL": {
+        "children": {
+          "A-WIRE": {}
+        }
+      },
+      "A-SECELEV": {
+        "children": {
+          "A-LINE 00": {},
+          "A-LINE 01": {},
+          "A-LINE 03": {},
+          "A-LINE 05": {},
+          "A-LINE 06-Section": {},
+          "A-LINE 02-IntElev": {},
+          "A-LINE 02-IntElev - DOTTED": {},
+          "A-LINE 02-Elev": {},
+          "A-LINE 02-Elev-DASHED": {},
+          "A-LINE 04": {},
+          "A-LINE 07": {},
+          "A-LINE 08": {}
+        }
+      },
+      "A-HATCH-WALL": {},
+      "A-HATCH": {},
+      "A-FOOTPRINT": {},
+      "A-ELECTRICAL PLAN": {
+        "children": {
+          "A-EQ PLUG": {},
+          "A-E WIRE": {},
+          "A-E SYM": {},
+          "A-PLUMBING": {},
+          "A-EQUIPMENT": {},
+          "A-LUMINAIRE": {}
+        }
+      },
+      "A-DETAIL": {
+        "children": {
+          "A-DETAIL 00": {},
+          "A-DETAIL 01": {},
+          "A-DETAIL 02": {},
+          "A-DETAIL 02-Elev-DASHED": {},
+          "A-DETAIL 03": {},
+          "A-DETAIL 04": {},
+          "A-DETAIL 05": {},
+          "A-DETAIL 06": {},
+          "A-HATCH": {}
+        }
+      }
+    }
+  },
+  "A-ANNOT": {
+    "children": {
+      "A-DIM": {},
+      "A-SYMBOL": {},
+      "A-TEXT": {},
+      "A-CALLOUT": {},
+      "A-CIRCULATION": {},
+      "A-NOTES": {}
+    }
+  },
+  "A-DETAILS": {
+    "children": {
+      "A-MBND 00": {},
+      "A-MBND 01": {},
+      "A-MBND 02": {},
+      "A-MBND 02 - DASHED": {},
+      "A-MBND 03": {},
+      "A-MBND 04": {},
+      "A-MBND 05": {},
+      "A-MBDN 08 - HIDDEN": {},
+      "A-HATCH": {},
+      "A-TEXT": {},
+      "A-DIM": {}
+    }
+  },
+  "A-3D": {
+    "children": {
+      "BLDG": {},
+      "LND": {
+        "children": {
+          "A-RETAINING WALLS": {}
+        }
+      },
+      "ADU": {
+        "children": {
+          "A-SLAB": {},
+          "A-ROOF": {},
+          "A-GLASS": {},
+          "A-DOOR WIND": {},
+          "A-WALL": {},
+          "A-CEILING": {}
+        }
+      },
+      "A-EQUIPMENT": {
+        "children": {
+          "A-SOLAR": {},
+          "A-SOLAR-CELL": {}
+        }
+      },
+      "SLAB": {},
+      "A-WALLS": {},
+      "STAIRS": {},
+      "A-DOOR": {},
+      "A-RAIL": {},
+      "A-CHIMNEY": {},
+      "A-WINDOW": {},
+      "A-GLAZING": {},
+      "A-ROOF": {},
+      "A-TRELLIS": {},
+      "A-SLAB": {},
+      "A-GLASS": {},
+      "A-WALL": {},
+      "A-CEILING": {},
+      "A-ADU": {},
+      "A-POOL": {}
+    }
+  },
+  "A-SITE": {
+    "children": {
+      "A-TOPO": {},
+      "A-PATIO": {},
+      "PLANTER": {},
+      "A-POOL": {},
+      "SITE BOUND": {},
+      "RETAINING": {},
+      "A-GROUND": {},
+      "A-SETBACK": {},
+      "A-STEPS": {},
+      "DRIVE": {},
+      "A-HATCH-VEGETATION": {},
+      "A-HATCH-PATIO": {},
+      "A-BOUNDARY": {},
+      "A-EASEMENT": {},
+      "A-RETAINING": {},
+      "A-HATCH": {},
+      "A-VEGETATION": {},
+      "A-PREFIRE": {},
+      "A-SITE BOUNDARY": {},
+      "A-RETAINING WALL": {}
+    }
+  },
+  "A-SURVEY": {
+    "children": {
+      "PNTS-SPOT": {},
+      "PNTS-CALC": {}
+    }
+  },
+  "A-LAYOUT": {
+    "children": {
+      "A-LABEL": {},
+      "A-NOPLOT": {},
+      "A-TEXT": {},
+      "A-SHEET": {},
+      "A-SYMBOL": {},
+      "A-NOTES": {},
+      "A-HATCH": {},
+      "A-HATCH-EXISTING": {},
+      "A-DETAILVIEW": {},
+      "A-PICTURE": {},
+      "A-DIM": {}
+    }
+  },
+  "A-HELPERS": {
+    "children": {
+      "PUNCHHOLES": {},
+      "PEOPLE": {},
+      "A-GUIDES": {},
+      "A-PUNCHHOLES": {},
+      "A-BOUNDARIES": {},
+      "A-CLIPPING PLANES": {}
+    }
+  },
+  "Make2D": {
+    "children": {
+      "Visible": {
+        "children": {
+          "Curves": {
+            "children": {
+              "A-3D": {
+                "children": {
+                  "A-CEILING": {}
+                }
+              },
+              "A-SITE": {
+                "children": {
+                  "RETAINING": {},
+                  "A-STEPS": {},
+                  "A-PATIO": {}
+                }
+              }
+            }
+          },
+          "ClippingPlaneIntersections": {
+            "children": {
+              "A-3D": {
+                "children": {
+                  "A-POOL": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "A-SHEETS": {
+    "children": {
+      "A-NOTE": {}
+    }
+  },
+  "A-IMPORT": {}
+}

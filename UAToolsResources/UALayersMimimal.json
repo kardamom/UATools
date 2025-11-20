@@ -1,0 +1,11 @@
+{
+ "Default": {},
+
+  "A-SURVEY": {},
+  "A-IMPORT": {},
+  "A-HELPERS": {
+    "children": {
+      "A-CLIPPING PLANES": {"color": "magenta", "printwidth":-1}
+    }
+  }
+}

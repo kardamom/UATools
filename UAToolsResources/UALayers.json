@@ -1,0 +1,92 @@
+{
+ "Default": {},
+  "A-3D": {
+    "children": {
+      "A-WALL": {"color": "blue"},
+      "A-ROOF": {"color": "brown"},
+      "A-WINDOW": {"color": "gray"},
+      "A-GLASS": {"color": "cyan"}
+    }
+  },
+  "A-2D": {
+    "children": {
+      "A-PLAN": {
+        "children": {
+          "A-WALL": {"color": "blue"},
+          "A-DOOR": {"color": "gold"},
+          "A-WINDOW": {"color": "turquoise"},
+            "A-HATCH": {"color": "darkgrey"},
+            "A-FURNITURE": {"color": "lime"}
+        }
+      },
+      "A-ELECTRICAL" : {
+         "children" : {
+              "A-WIRE" : { "color" : "red" }
+          }
+      },
+      "A-SECELEV": {
+        "children": {
+          "A-LINE 00": {},
+          "A-LINE 01": {"print_width" : 0.075},
+          "A-LINE 02-Elev": {"print_width": 0.13, "color": "olivedrab"},
+          "A-LINE 02-Elev-DASHED": {"linetype": "Dashed", "print_width": 0.13, "color": "olivedrab"},
+          "A-LINE 03": {"print_width": 0.18, "color":"cadetblue"},
+          "A-LINE 04": {"print_width": 0.25},
+          "A-LINE 05": {"print_width": 0.35},
+          "A-LINE 06-Section": {"print_width": 0.5, "color": "blue"},
+          "A-LINE 07": {"print_width": 0.7},
+          "A-LINE 08": {"print_width": 1.0, "color": "steelblue"}
+        }
+      },
+      "A-DETAIL": {
+        "children": {
+          "A-DETAIL 00": {},
+          "A-DETAIL 01": {"print_width" : 0.075},
+          "A-DETAIL 02": {"print_width": 0.13, "color": "chartreuse"},
+          "A-DETAIL 02-Elev-DASHED": {"linetype": "Dashed", "print_width": 0.13, "color": "chartreuse"},
+          "A-DETAIL 03": {"print_width": 0.18},
+          "A-DETAIL 04": {"print_width": 0.25, "color": "salmon" },
+          "A-DETAIL 05": {"print_width": 0.35, "color": "blue" },
+          "A-DETAIL 06": {"print_width": 0.5, "color": "blue" },
+          "A-HATCH": {"color": "lightgrey"}
+        }
+      }
+    }
+  },
+  "A-LAYOUT": {
+    "children": {
+      "A-DIM": {},
+      "A-TEXT": {"color": "darkorange"},
+      "A-NOTES": {"color": "darkorange"},
+      "A-SYMBOL": {"color": "darkorange"},
+      "A-DETAILVIEW": {},
+      "A-LABEL": {}
+    }
+  },
+  "A-ANNOT": {
+    "children": {
+      "A-DIM": {},
+      "A-TEXT": {"color": "darkorange"},
+      "A-NOTES": {"color": "darkorange"},
+      "A-SYMBOL": {"color": "darkorange"}
+    }
+  },
+  "A-SITE": {
+    "children": {
+      "A-SITE BOUNDARY": {"color": "teal"},
+      "A-RETAINING WALL": {},
+      "A-TOPO": {"color": "darkgray"},
+      "A-GROUND": {"color": "beige"}
+    }
+  },
+  "A-SURVEY": {},
+  "A-IMPORT": {},
+  "A-HELPERS": {
+    "children": {
+	"A-CLIPPING PLANES": {"color": "magenta", "printwidth":-1},
+	"A-BOUNDARIES": {"color": "lightsalmon", "printwidth":-1},
+	"A-PUNCHHOLES": {"color": "cyan", "printwidth":-1}
+	
+    }
+  }
+}
