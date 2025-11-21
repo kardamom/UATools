@@ -29,29 +29,35 @@ def load_layer_structure(custom_file=None):
             json_path = custom_file
             print("Loading layer structure from custom file: " + json_path)
         else:
-            # Try multiple locations to find the JSON file
-            script_dir = os.path.dirname(os.path.abspath(__file__))
-            
-            # List of paths to try
-            possible_paths = [
-                os.path.join(get_shared_resource_dir(), "UALayers.json"), 
-                os.path.join(script_dir, "UALayers.json"),# Same directory as script
-            ]
-     
-            
-            # Find the first existing path
-            json_path = None
-            for path in possible_paths:
-                normalized_path = os.path.normpath(path)
-                if os.path.exists(normalized_path):
-                    json_path = normalized_path
-                    break
-            
-            if json_path is None:
-                print("Error: UALayers.json not found in any of these locations:")
+            # Check if there's a previously used custom file
+            last_custom_file = rs.GetDocumentData("LayerImport", "LastCustomFile")
+            if last_custom_file and os.path.exists(last_custom_file):
+                json_path = last_custom_file
+                print("Loading layer structure from previously used custom file: " + json_path)
+            else:
+                # Try multiple locations to find the JSON file
+                script_dir = os.path.dirname(os.path.abspath(__file__))
+                
+                # List of paths to try
+                possible_paths = [
+                    os.path.join(get_shared_resource_dir(), "UALayers.json"), 
+                    os.path.join(script_dir, "UALayers.json"),# Same directory as script
+                ]
+         
+                
+                # Find the first existing path
+                json_path = None
                 for path in possible_paths:
-                    print("  - " + os.path.normpath(path))
-                return None
+                    normalized_path = os.path.normpath(path)
+                    if os.path.exists(normalized_path):
+                        json_path = normalized_path
+                        break
+                
+                if json_path is None:
+                    print("Error: UALayers.json not found in any of these locations:")
+                    for path in possible_paths:
+                        print("  - " + os.path.normpath(path))
+                    return None
         
         if os.path.exists(json_path):
             if not custom_file:
@@ -72,7 +78,7 @@ class LayerSelectionDialog(forms.Dialog[bool]):
     """
     Eto Forms dialog for selecting layer categories.
     """
-    def __init__(self, layer_keys):
+    def __init__(self, layer_keys, current_custom_file=None):
         super(LayerSelectionDialog, self).__init__()
         
         self.Title = "Select UA Top Level Layers"
@@ -82,6 +88,7 @@ class LayerSelectionDialog(forms.Dialog[bool]):
         self.layer_keys = [k for k in layer_keys if k.lower() != "default"]
         self.checkboxes = {}
         self.custom_file_path = None
+        self.current_custom_file = current_custom_file
         
         # Create layout
         layout = forms.DynamicLayout()
@@ -107,11 +114,23 @@ class LayerSelectionDialog(forms.Dialog[bool]):
         
         layout.AddRow(None)  # Spacer
         
-        # Add custom file button
+        # Add custom file button and label
         file_button = forms.Button()
         file_button.Text = "Select Custom Layer File..."
         file_button.Click += self.on_file_button_click
         layout.AddRow(file_button)
+        
+        # Show current custom file if one exists
+        if current_custom_file:
+            file_label = forms.Label()
+            file_label.Text = "Current: " + os.path.basename(current_custom_file)
+            layout.AddRow(file_label)
+            
+            # Add button to clear custom file
+            clear_button = forms.Button()
+            clear_button.Text = "Use Default Layer File"
+            clear_button.Click += self.on_clear_custom_file
+            layout.AddRow(clear_button)
         
         # Add OK and Cancel buttons
         self.DefaultButton = forms.Button()
@@ -155,11 +174,22 @@ class LayerSelectionDialog(forms.Dialog[bool]):
         dialog.Title = "Select Layer Definition JSON File"
         dialog.Filters.Add(forms.FileFilter("JSON Files", ".json"))
         
+        # Set initial directory from current custom file if it exists
+        if self.current_custom_file and os.path.exists(self.current_custom_file):
+            dialog.Directory = System.Uri(os.path.dirname(self.current_custom_file))
+            dialog.FileName = os.path.basename(self.current_custom_file)
+        
         if dialog.ShowDialog(self) == forms.DialogResult.Ok:
             self.custom_file_path = dialog.FileName
             print("Custom file selected: " + self.custom_file_path)
             # Close dialog with False to signal custom file selection
             self.Close(False)
+    
+    def on_clear_custom_file(self, sender, e):
+        """Handle clearing the custom file to use default"""
+        self.custom_file_path = "CLEAR"
+        print("Cleared custom file, will use default layer file")
+        self.Close(False)
 
     
     def on_ok_clicked(self, sender, e):
@@ -184,19 +214,19 @@ class LayerSelectionDialog(forms.Dialog[bool]):
         return selected
 
 
-def get_checkbox_options(layer_keys):
+def get_checkbox_options(layer_keys, current_custom_file=None):
     """
     Present Eto dialog to the user based on available layer keys.
     Returns: (selections_list, custom_file_path) or (None, None) if cancelled
     """
-    dialog = LayerSelectionDialog(layer_keys)
+    dialog = LayerSelectionDialog(layer_keys, current_custom_file)
     result = dialog.ShowModal(Rhino.UI.RhinoEtoApp.MainWindow)
     
     if result:
         selections = dialog.get_selections()
         return selections, dialog.custom_file_path
     elif dialog.custom_file_path:
-        # User selected a custom file
+        # User selected a custom file or cleared it
         return None, dialog.custom_file_path
     else:
         # User cancelled
@@ -343,6 +373,9 @@ def create_layer_from_spec(name, spec, parent=None):
 
 
 if __name__ == "__main__":
+    # Check for previously used custom file
+    current_custom_file = rs.GetDocumentData("LayerImport", "LastCustomFile")
+    
     # First load to get available layers
     structure = load_layer_structure()
     
@@ -351,17 +384,33 @@ if __name__ == "__main__":
         
         # Allow user to select different file if desired
         while True:
-            user_selections, custom_file = get_checkbox_options(layer_keys)
+            user_selections, custom_file = get_checkbox_options(layer_keys, current_custom_file)
             
             # If custom file was selected, reload and restart
             if custom_file and user_selections is None:
-                structure = load_layer_structure(custom_file)
-                if structure:
-                    layer_keys = list(structure.keys())
-                    continue
+                if custom_file == "CLEAR":
+                    # Clear the stored custom file
+                    rs.SetDocumentData("LayerImport", "LastCustomFile", "")
+                    current_custom_file = None
+                    # Reload default structure
+                    structure = load_layer_structure()
+                    if structure:
+                        layer_keys = list(structure.keys())
+                        continue
+                    else:
+                        print("Failed to load default layer file")
+                        break
                 else:
-                    print("Failed to load custom file")
-                    break
+                    # Save the new custom file path
+                    rs.SetDocumentData("LayerImport", "LastCustomFile", custom_file)
+                    current_custom_file = custom_file
+                    structure = load_layer_structure(custom_file)
+                    if structure:
+                        layer_keys = list(structure.keys())
+                        continue
+                    else:
+                        print("Failed to load custom file")
+                        break
             
             # Process selections
             if user_selections is not None:
@@ -371,4 +420,4 @@ if __name__ == "__main__":
                 print("No selections made or cancelled")
             break
     else:
-        print("Cannot proceed without layer structure file")#! python 3
+        print("Cannot proceed without layer structure file")

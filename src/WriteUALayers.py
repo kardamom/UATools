@@ -1,5 +1,6 @@
 import rhinoscriptsyntax as rs
 import json
+import os
 from UAColorMap import rgb_to_color
 
 def ExportLayerNamesJSON():
@@ -54,10 +55,24 @@ def ExportLayerNamesJSON():
                 
                 current_level = current_level[part]["children"]
     
+    # Get the last used filename from sticky dictionary
+    last_filename = rs.GetDocumentData("LayerExport", "LastFile")
+    
+    # Determine initial directory and filename
+    if last_filename and os.path.exists(last_filename):
+        initial_dir = os.path.dirname(last_filename)
+        initial_file = os.path.basename(last_filename)
+    else:
+        initial_dir = None
+        initial_file = "layer_structure.json"
+    
     # Save to JSON file
     filter = "JSON File (*.json)|*.json||"
-    filename = rs.SaveFileName("Save layer structure as", filter)
+    filename = rs.SaveFileName("Save layer structure as", filter, initial_dir, initial_file)
     if not filename: return
+    
+    # Save the chosen filename for next time
+    rs.SetDocumentData("LayerExport", "LastFile", filename)
     
     with open(filename, "w") as file:
         json.dump(layer_structure, file, indent=2)
