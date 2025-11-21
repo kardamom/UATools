@@ -37,7 +37,7 @@
         "version": "3.9.10"
       },
       "title": "WriteUALayers",
-      "uri": "UAToolsResources/WriteUALayers.py",
+      "uri": "src/WriteUALayers.py",
       "image": {
         "light": {
           "type": "svg",
@@ -68,7 +68,7 @@
         "version": "3.9.10"
       },
       "title": "CreateUALayers",
-      "uri": "UAToolsResources/CreateUALayers.py",
+      "uri": "src/CreateUALayers.py",
       "image": {
         "light": {
           "type": "svg",
@@ -97,7 +97,7 @@
     {
       "type": "uri",
       "library": {
-        "base": "UAToolsResources/UAColorMap/",
+        "base": "src/UAColorMap/",
         "language": {
           "id": "*.*.python",
           "version": "3.*.*"
@@ -108,7 +108,7 @@
   "resources": [
     {
       "id": "971363f3-d60e-45eb-bdaa-91aa39c30224",
-      "uri": "UAToolsResources/UALayers.json"
+      "uri": "src/UALayers.json"
     }
   ]
 }
